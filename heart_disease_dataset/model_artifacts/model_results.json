@@ -16,7 +16,7 @@
             "classifier__C": 10.0,
             "classifier__penalty": "l2"
         },
-        "mlflow_run_id": "fd74080d0f8f490584c9de0f3da480fe"
+        "mlflow_run_id": "6e7b10158b8a416d954da56a17c2858f"
     },
     "RandomForest": {
         "mean_cv_metrics": {
@@ -36,7 +36,7 @@
             "classifier__min_samples_split": 5,
             "classifier__n_estimators": 100
         },
-        "mlflow_run_id": "981db748b86d43b18969fc960efaea04"
+        "mlflow_run_id": "a99e2f10aa444d16a10b911459fe408d"
     },
     "experiment_metadata": {
         "random_seed": 42,
