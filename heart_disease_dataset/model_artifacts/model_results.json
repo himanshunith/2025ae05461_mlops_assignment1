@@ -1,0 +1,55 @@
+{
+    "LogisticRegression": {
+        "mean_cv_metrics": {
+            "accuracy": 0.8553571428571429,
+            "precision": 0.8780601041470606,
+            "recall": 0.8015810276679842,
+            "roc_auc": 0.8994679233809668
+        },
+        "std_cv_metrics": {
+            "accuracy": 0.01850227587613487,
+            "precision": 0.055745689878036984,
+            "recall": 0.02373516963794853,
+            "roc_auc": 0.01367374165587808
+        },
+        "best_params": {
+            "classifier__C": 10.0,
+            "classifier__penalty": "l2"
+        },
+        "mlflow_run_id": "ccb38bf40d5441318c5506b8206d0f02"
+    },
+    "RandomForest": {
+        "mean_cv_metrics": {
+            "accuracy": 0.8140306122448979,
+            "precision": 0.7987676767676767,
+            "recall": 0.8007905138339921,
+            "roc_auc": 0.8983694244563811
+        },
+        "std_cv_metrics": {
+            "accuracy": 0.01853975520396145,
+            "precision": 0.03589191224148661,
+            "recall": 0.080349033159226,
+            "roc_auc": 0.023164401727784827
+        },
+        "best_params": {
+            "classifier__max_depth": null,
+            "classifier__min_samples_split": 5,
+            "classifier__n_estimators": 100
+        },
+        "mlflow_run_id": "7d3affacf9ee43f7a6aa92dbf7143bdf"
+    },
+    "experiment_metadata": {
+        "random_seed": 42,
+        "cv_strategy": "StratifiedKFold",
+        "cv_splits": 5,
+        "test_split_proportion": 0.2,
+        "selection_metric": "recall",
+        "selected_model": "LogisticRegression",
+        "final_hold_out_metrics": {
+            "test_accuracy": 0.8688524590163934,
+            "test_precision": 0.8333333333333334,
+            "test_recall": 0.8928571428571429,
+            "test_roc_auc": 0.9632034632034633
+        }
+    }
+}
