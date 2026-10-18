@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s # Check for new data every 5 seconds
+
+scrape_configs:
+  - job_name: 'heart-disease-api'
+    static_configs:
+      # host.docker.internal allows a Docker container to see your local port-forward
+      - targets: ['host.docker.internal:8001']
