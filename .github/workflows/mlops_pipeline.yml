@@ -42,19 +42,19 @@ jobs:
         run: |
           python data_pipeline.py > logs/data_pipeline.log 2>&1
 
-      # Updated to target the new test/ folder
+      # Updated to target the new tests/ folder
       - name: Pre-Training Phase - Run Independent Data Unit Tests
         run: |
-          python -m pytest test/test_data_processing.py -v --junitxml=reports/data_test_report.xml
+          python -m pytest tests/test_data_processing.py -v --junitxml=reports/data_test_report.xml
 
       - name: Run Model Pipeline (Train & Track via MLflow)
         run: |
           python model_pipeline.py > logs/model_pipeline.log 2>&1
 
-      # Updated to target the new test/ folder
+      # Updated to target the new tests/ folder
       - name: Post-Training Phase - Run Model & Inference Integration Tests
         run: |
-          python -m pytest test/test_model_integration.py -v --junitxml=reports/model_integration_report.xml
+          python -m pytest tests/test_model_integration.py -v --junitxml=reports/model_integration_report.xml
 
       - name: Upload ML Artifacts, Reports, and Logs
         if: always()
