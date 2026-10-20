@@ -175,13 +175,12 @@ class HeartDiseaseModelPipeline:
                     self._plot_cv_metrics(name, mean_cv_metrics, plot_path)
                     mlflow.log_artifact(str(plot_path))
                     
-                    # 5. Log Model Artifact securely using skops with explicitly trusted types
+                    # 5. Log Model Artifact using cloudpickle (informational warnings are expected and safe)
                     best_pipeline = grid_search.best_estimator_
                     mlflow.sklearn.log_model(
                         best_pipeline, 
                         "model", 
-                        serialization_format="skops",
-                        skops_trusted_types=["numpy.dtype", "sklearn.tree._tree.Tree"]
+                        serialization_format="cloudpickle"
                     )
 
                     self.results_summary[name] = {

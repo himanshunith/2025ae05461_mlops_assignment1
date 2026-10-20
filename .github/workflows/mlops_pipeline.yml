@@ -63,4 +63,4 @@ jobs:
             mlflow.db
             logs/
             reports/
-          retention-days: 7
+          retention-days: 60

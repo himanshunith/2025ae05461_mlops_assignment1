@@ -1,0 +1,51 @@
+@startuml
+top to bottom direction
+skinparam monochrome true
+
+rectangle "Developer / Local" as A
+usecase "GitHub Repository" as B
+
+rectangle "Automated CI/CD (GitHub Actions)" {
+    usecase "Run Pipeline (Lint, Data, Train, Test)" as C
+    hexagon "All CI Steps Passed?" as D
+    usecase "Upload Artifacts" as E
+}
+
+rectangle "Manual Deployment Steps" {
+    usecase "Build Docker Image" as F
+    database "Local Docker Image Store\n(imagePullPolicy: IfNotPresent)" as G
+    usecase "kubectl apply & port-forward" as H
+}
+
+rectangle "Local Kubernetes Cluster" {
+    usecase "K8s Deployment (API Pods)" as I
+    usecase "K8s Service (port 8000)" as J
+}
+
+rectangle "Monitoring (Outside K8s)" {
+    usecase "Prometheus Server\n(Standalone Docker)" as K
+}
+
+rectangle "End User / Client" as L
+
+' Automated Flow
+A --> B : Push Code
+B --> C : Trigger Workflow
+C --> D : Run
+D --> E : Yes
+
+' Transition to Manual Flow
+E .down.> F : Proceed Manually
+F --> G : Save Image
+G --> H : Deploy
+
+' Kubernetes Interactions
+H --> I : Create Pods
+H --> J : Establish Tunnel\n(8001 -> 8000)
+I --> J : Route Traffic (Internal)
+
+' Client and Monitoring Access
+J --> L : Serve Requests\n(localhost:8001)
+J <-- K : GET /metrics\n(via host port-forward\nhost.docker.internal:8001)
+
+@enduml
