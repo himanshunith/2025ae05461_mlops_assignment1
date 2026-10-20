@@ -16,10 +16,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
+      # Matched to your local VM Conda environment
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
           cache: "pip"
 
       - name: Install Dependencies
@@ -41,17 +42,19 @@ jobs:
         run: |
           python data_pipeline.py > logs/data_pipeline.log 2>&1
 
+      # Updated to target the new test/ folder
       - name: Pre-Training Phase - Run Independent Data Unit Tests
         run: |
-          pytest test_data_processing.py -v --junitxml=reports/data_test_report.xml
+          python -m pytest test/test_data_processing.py -v --junitxml=reports/data_test_report.xml
 
       - name: Run Model Pipeline (Train & Track via MLflow)
         run: |
           python model_pipeline.py > logs/model_pipeline.log 2>&1
 
+      # Updated to target the new test/ folder
       - name: Post-Training Phase - Run Model & Inference Integration Tests
         run: |
-          pytest test_model_integration.py -v --junitxml=reports/model_integration_report.xml
+          python -m pytest test/test_model_integration.py -v --junitxml=reports/model_integration_report.xml
 
       - name: Upload ML Artifacts, Reports, and Logs
         if: always()
@@ -60,6 +63,7 @@ jobs:
           name: mlops-artifacts
           path: |
             heart_disease_dataset/
+            mlruns/
             mlflow.db
             logs/
             reports/
